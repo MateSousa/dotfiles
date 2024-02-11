@@ -63,10 +63,6 @@ vim.api.nvim_create_user_command(
   { range = true }
 )
 
-
-
-
-
 local function start_lazygit()
   local ui = vim.api.nvim_list_uis()[1]
   local width = math.floor(ui.width * 0.9)
