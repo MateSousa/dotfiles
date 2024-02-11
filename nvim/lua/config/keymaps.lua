@@ -28,11 +28,11 @@ keymaps("n", "<leader>bn", ":bnext<cr>", opts)
 -- Change to NeoTree
 keymaps("n", "<leader>nt", ":Neotree<cr>", opts)
 
--- Find word using in current folder using telescope
+-- Find word using in current file using telescope
 keymaps("n", "<leader>fw", ":Telescope grep_string<cr>", opts)
 
 -- Find word in current buffer using telescope
-keymaps("n", "<leader>fb", ":Telescope current_buffer_fuzzy_find<cr>", opts)
+keymaps("n", "<leader>fb", ":Telescope live_grep<cr>", opts)
 
 -- Comment code
 keymaps("n", "<leader>cc", ":CommentCode<cr>", opts)
