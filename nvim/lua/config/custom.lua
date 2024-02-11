@@ -34,6 +34,7 @@ local function comment_code(start_line, end_line, comment_char)
 
   local filetype = vim.bo.filetype
   local comment_string = comment_chars[filetype] or '#'
+  local comment_pattern = "^%s*" .. vim.pesc(comment_string)
   comment_string = comment_string .. " "
 
   start_line = start_line - 1
@@ -42,15 +43,19 @@ local function comment_code(start_line, end_line, comment_char)
 
   for i = start_line, end_line do
     local line = vim.api.nvim_buf_get_lines(0, i, i + 1, false)[1]
-    --  local is_comment = line:find("^%s*" .. comment_string)
+    local leading_whitespace = line:match("^(%s*)")
 
-    if filetype == "html" then
-      vim.api.nvim_buf_set_lines(0, i, i + 1, false, { comment_string .. line .. " -->" })
+    if line:match(comment_pattern) then
+      local uncommented_line = line:gsub(comment_pattern, "", 1)
+      vim.api.nvim_buf_set_lines(0, i, i + 1, false, { uncommented_line })
     else
-      print(start_line)
-      print(end_line)
-      print(comment_string .. line)
-      vim.api.nvim_buf_set_lines(0, i, i + 1, false, { comment_string .. line })
+      if filetype == "html" then
+        vim.api.nvim_buf_set_lines(0, i, i + 1, false,
+          { leading_whitespace .. comment_string .. line:sub(#leading_whitespace + 1) .. " -->" })
+      else
+        vim.api.nvim_buf_set_lines(0, i, i + 1, false,
+          { leading_whitespace .. comment_string .. line:sub(#leading_whitespace + 1) })
+      end
     end
   end
 end
