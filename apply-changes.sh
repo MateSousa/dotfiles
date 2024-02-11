@@ -14,7 +14,7 @@ get_bashrc() {
   echo "bashrc copied"
 }
 
-if $1 == "editor"; then
+if $1 == "nvimzete"; then
   get_nvim
 elif $1 == "bashrc"; then
   get_bashrc
