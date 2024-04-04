@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x 
+set -e
 
 get_nvim() {
   rm -rf nvim
@@ -14,10 +14,11 @@ get_bashrc() {
   echo "bashrc copied"
 }
 
-if $1 == "nvimzete"; then
+if [[ "$1" == "nvimzete" ]]; then
   get_nvim
-elif $1 == "bashrc"; then
+elif [[ "$1" == "bashrc" ]]; then
   get_bashrc
 else
   echo "Invalid argument"
 fi
+
