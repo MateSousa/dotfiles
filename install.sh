@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Install all the required packages that i use in my environment
-set -e
-
-cd ~/Downloads
-
 install_curl() {
   sudo apt-get update
   sudo apt-get install curl

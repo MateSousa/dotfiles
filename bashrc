@@ -1,6 +1,7 @@
 #!/bin/bash
 iatest=$(expr index "$-" i)
 
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	 . /etc/bashrc
@@ -45,7 +46,7 @@ if [[ $iatest -gt 0 ]]; then bind "set completion-ignore-case on"; fi
 if [[ $iatest -gt 0 ]]; then bind "set show-all-if-ambiguous On"; fi
 
 # Set the default editor
-export EDITOR=nvim
+export EDITOR=code
 export VISUAL=nvim
 alias pico='edit'
 alias spico='sedit'
@@ -53,6 +54,9 @@ alias nano='edit'
 alias snano='sedit'
 alias vim='nvim'
 alias n='nvim'
+alias gwip='g commit -m "wip" && git push'
+alias ssl_checker='python3 /home/matheus/code/study/hero-scripts/ssl_checker.py'
+
 
 # Replace batcat with cat on Fedora as batcat is not available as a RPM in any form
 if command -v lsb_release > /dev/null; then
@@ -130,6 +134,8 @@ alias freshclam='sudo freshclam'
 alias vi='nvim'
 alias svi='sudo vi'
 alias vis='nvim "+set si"'
+alias awscred='xclip -o | tr -d "\r" | sed "s/\[.*\]/\[default\]/" | sed "$ a\region=us-east-1" > ~/.aws/credentials'
+
 
 # Change directory aliases
 alias home='cd ~'
@@ -230,6 +236,8 @@ alias tf="terraform"
 alias d="docker"
 alias dc="docker compose"
 alias gac="git_add_commit_push"
+alias cicd="git commit --allow-empty -m '[CICD Trigger]' && git push"
+alias clsdocker="clean_docker"
 
 #######################################################
 # SPECIAL FUNCTIONS
@@ -317,6 +325,18 @@ git_add_commit_push ()
   git commit -m "$commit_message"
   git push
 }
+
+clean_docker() {
+    echo "Removing all Docker images..."
+    docker rmi -f $(docker images -q)
+
+    echo "Removing all Docker volumes..."
+    docker volume rm $(docker volume ls -q)
+
+    echo "All Docker images and volumes have been removed."
+}
+
+
 
 # Searches for text in all files in the current folder
 ftext ()
@@ -729,8 +749,15 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH=/home/matheus/bin:$PATH
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH="$HOME/.tfenv/bin:$PATH"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+export PATH="$HOME/.pgenv/bin:$HOME/.pgenv/pgsql/bin:$PATH"
+export OPENAI_API_KEY="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"
 
 [[ -e "/home/matheus/lib/oracle-cli/lib/python3.10/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/home/matheus/lib/oracle-cli/lib/python3.10/site-packages/oci_cli/bin/oci_autocomplete.sh"
 
@@ -739,3 +766,7 @@ if [ -f '/home/matheus/google-cloud-sdk/path.bash.inc' ]; then . '/home/matheus/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/matheus/google-cloud-sdk/completion.bash.inc' ]; then . '/home/matheus/google-cloud-sdk/completion.bash.inc'; fi
+. "$HOME/.cargo/env"
+source /home/matheus/code/study/alacritty/extra/completions/alacritty.bash
+
+neofetch --jpa2 ~/Downloads/comboy.jpg
