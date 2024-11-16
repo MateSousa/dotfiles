@@ -757,7 +757,6 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export PATH="$HOME/.tfenv/bin:$PATH"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export PATH="$HOME/.pgenv/bin:$HOME/.pgenv/pgsql/bin:$PATH"
-export OPENAI_API_KEY="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"
 
 [[ -e "/home/matheus/lib/oracle-cli/lib/python3.10/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/home/matheus/lib/oracle-cli/lib/python3.10/site-packages/oci_cli/bin/oci_autocomplete.sh"
 
